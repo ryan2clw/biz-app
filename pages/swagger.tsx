@@ -9,18 +9,16 @@ const SwaggerUI = dynamic<{
 }>(import('swagger-ui-react'), { ssr: false });
 
 function ApiDoc({ spec }: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log("spec", spec)
   return <SwaggerUI spec={spec} />;
 }
 
 export const getStaticProps: GetStaticProps = async () => {
   const spec: Record<string, any> = createSwaggerSpec({
     apiFolder: 'pages/api',
-    schemaFolders: ['models'],
     definition: {
       openapi: '3.0.0',
       info: {
-        title: 'Next Swagger API Example',
+        title: 'Biz CMS',
         version: '1.0',
       },
     },

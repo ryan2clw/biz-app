@@ -21,11 +21,12 @@ interface SomeEndpoint extends NextApiRequest{
  * /api/page-data:
  *   get:
  *     description: Returns the page data
+ *     tags:
+ *      - Page Data
  *     parameters:
  *      - in: query
  *        name: url
  *        type: string
- *        required: true
  *        description: Page to get
  *     responses:
  *       200:
@@ -39,6 +40,5 @@ export default function handler(
         query: { url },
         method,
       } = request;
-      console.log(url, method);
       response.status(200).json({ url, method  })
 }

@@ -10,6 +10,8 @@ type Data = {
  * /api/hello:
  *   get:
  *     description: Returns the hello world
+ *     tags:
+ *      - Page Data
  *     responses:
  *       200:
  *         description: hello world
