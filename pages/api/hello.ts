@@ -5,17 +5,17 @@ type Data = {
   hello: string
 }
 
-/**
- * @swagger
- * /api/hello:
- *   get:
- *     description: Returns the hello world
- *     tags:
- *      - Page Data
- *     responses:
- *       200:
- *         description: hello world
- */
+// /**
+//  * @swagger
+//  * /api/hello:
+//  *   get:
+//  *     description: Returns the hello world
+//  *     tags:
+//  *      - Page Data
+//  *     responses:
+//  *       200:
+//  *         description: hello world
+//  */
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
