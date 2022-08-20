@@ -41,7 +41,12 @@ export default function handler(
     const {
         query: { url = "homePage" }
       } = request;
-      pageService.getPage(url).then((ret: any)=>{
-      return response.status(200).json(ret);
-    });
+      try{
+        pageService.getPage(url).then((ret: any)=>{
+          return response.status(200).json(ret);
+        });
+      }catch(error: any){
+        return {...error};
+      }
+
 }

@@ -37,8 +37,8 @@ export const pageService = {
                     const entry = entries.items[0];
                     return pageService.parseEntry(entry, includes);
                 }
-                return "NO PAGE FOUND";
-            });
+                return {error: "NO PAGE FOUND"};
+            }).catch((error:any)=>error);
         return { ...pageData };
     }
 }
