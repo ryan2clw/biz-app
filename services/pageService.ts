@@ -1,6 +1,10 @@
 import { ENVIRONMENT, API_KEY, SPACE_ID } from "./constants";
 
 const urlHelper = (method: string, queryParam?: string) => {
+
+    if(!SPACE_ID || !ENVIRONMENT || !API_KEY ){
+        throw new Error("Environment variables not set");
+    }
     return `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT}/${method}/?access_token=${API_KEY}&${queryParam}`;
 }
 

@@ -1,0 +1,7 @@
+THIS IS MY TO DO LIST:
+
+A. UNIT TESTS:
+
+    1.THAT ENVIRONMENT VARIABLES ARE SET (delete old code check)
+
+B.
