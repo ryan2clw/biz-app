@@ -6,7 +6,7 @@ import 'swagger-ui-react/swagger-ui.css';
 const SwaggerUI = dynamic<{
   spec: Record<string, any>;
   // @ts-ignore
-}>(import('swagger-ui-react'), { ssr: true });
+}>(import('swagger-ui-react'), { ssr: false });
 
 function ApiDoc({ spec }: InferGetStaticPropsType<typeof getStaticProps>) {
   return <SwaggerUI spec={spec} />;
