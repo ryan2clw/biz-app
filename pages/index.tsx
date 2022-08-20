@@ -6,9 +6,9 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 const dev = process.env.NODE_ENV !== 'production';
 
-export const server = dev ? 'http://localhost:3000' : process.env.VERCEL_URL;
+export const server = dev ? 'http://localhost:3000' : 'https://biz-7gf5qcy6b-ryan2clw.vercel.app';
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
 
   const res = await fetch(`${server}/api/page-data`);
   const pageData = await res.json();
