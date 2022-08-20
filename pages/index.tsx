@@ -8,7 +8,7 @@ const dev = process.env.NODE_ENV !== 'production';
 
 export const server = dev ? 'http://localhost:3000' : process.env.VERCEL_URL;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 
   const res = await fetch(`${server}/api/page-data`);
   const pageData = await res.json();
