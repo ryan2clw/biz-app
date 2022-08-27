@@ -11,6 +11,18 @@
   justify-content: center;
   align-items: center;
 }
+.richText{
+  max-width: 250px;
+  ul{
+    padding-left: 15px;
+  }
+  p{
+    text-align: left;
+  }
+  h1{
+    text-align: 'center';
+  }
+}
 #bg {
   position: fixed; 
   top: -50%; 

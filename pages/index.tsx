@@ -1,8 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.scss'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { Button } from '@material-ui/core';
+import { useRouter } from 'next/router';
 
 const dev = process.env.NODE_ENV !== 'production';
 
@@ -20,9 +22,11 @@ export async function getServerSideProps() {
   }
 }
 
-const Home = (props: any) => {
+const Page = (props: any) => {
 
   const { topContent, backgroundImage } = props;
+
+  const router = useRouter();
 
   return (
     <div>
@@ -33,9 +37,11 @@ const Home = (props: any) => {
       </Head>
 
       <main className={styles.main} >
-
-        {documentToReactComponents(topContent)}
-        <div>
+        <div className={styles.richText}>
+          {documentToReactComponents(topContent)}
+        </div>
+        <Button color="primary" onClick={()=>router.push("/contact-form")}>Sales Funnel</Button>
+        <div style={{pointerEvents: 'none'}}>
           <Image 
             src={`https:${backgroundImage?.file?.url}`} 
             alt={backgroundImage?.description} 
@@ -62,4 +68,4 @@ const Home = (props: any) => {
   )
 }
 
-export default Home
+export default Page
