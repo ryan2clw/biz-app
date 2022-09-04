@@ -39,7 +39,7 @@ export default function handler(
   response: NextApiResponse<Data>
 ) {
     const {
-        query: { url = "page" }
+        query: { url }
       } = request;
       try{
         pageService.getPage(url).then((ret: any)=>{

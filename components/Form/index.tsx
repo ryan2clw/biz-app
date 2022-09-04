@@ -1,12 +1,12 @@
-import Body from "../Body";
+import Main from "../Main";
 
 export default function Form(props: any){
 
 
 
     return(
-        <Body>
+        <Main>
             
-        </Body>
+        </Main>
     );
 }
