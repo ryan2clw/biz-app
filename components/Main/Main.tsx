@@ -8,13 +8,7 @@ export default function Main({children, background}: any){
     
 
     return(
-        <main className={styles.main}>
-            {/* @ts-ignore */}
-            {background && <style jsx>{`
-                main {
-                    background: ${background};
-                }
-            `}</style>}
+        <main className={styles.main} style={{background}}>
             {children}
         </main>
     );

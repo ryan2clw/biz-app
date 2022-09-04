@@ -42,7 +42,6 @@ export default function handler(
         query: { url }
       } = request;
       try{
-        console.log("API sending url to contentful", url);
         pageService.getPage(`${url}`).then((ret: any)=>{
           return response.status(200).json(ret);
         });

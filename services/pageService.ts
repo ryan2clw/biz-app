@@ -7,11 +7,23 @@ const urlHelper = (method: string, queryParam?: string) => {
     if(!SPACE_ID || !ENVIRONMENT || !API_KEY ){
         throw new Error("Environment variables not set");
     }
-    console.log("queryParam", queryParam);
     return `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT}/${method}/?access_token=${API_KEY}&content_type=page&fields.url=${queryParam}`;
 }
 
 export const pageService = {
+    getNotFound: async()=>{
+        const notFoundURL = urlHelper("entries", "/404");
+        const notFoundData = await fetch(notFoundURL).then(res => res.json())
+        .then((entries) => {
+            const { items, includes } = entries;
+            if(items?.length >= 1){
+                const entry = entries.items[0];
+                return pageService.parseEntry(entry, includes);
+            }
+            return {error: "NO PAGE NOT FOUND"};
+        });
+        return { ...notFoundData };
+    },
     parseEntry: (entry: any, resourceList: any) => {
         let { fields } = entry;
         const componentNames = Object.getOwnPropertyNames(fields);
@@ -38,10 +50,10 @@ export const pageService = {
                     // default sorting is descending by date, so grab current one
                     const entry = entries.items[0];
                     return pageService.parseEntry(entry, includes);
-                }                
-                return {error: "NO PAGE FOUND"};
-                // TO DO: ACCOUNT FOR NOT FOUND ERRORS WITH 404 PAGE
+                }
+                return pageService.getNotFound();
             }).catch((error:any)=>error);
+            // MARK TO DO: IMPLEMENT 403 PAGE
         return { ...pageData };
     }
 }
