@@ -2,22 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../../styles/Home.module.scss';
-import { API_HOST } from '../../services/constants';
 import Content from '../Content';
-import Splash from '../Splash';
-
-export async function getServerSideProps() {
-
-  const res = await fetch(`${API_HOST}/api/page-data`);
-  console.log(API_HOST);
-  const pageData = await res.json();
-
-  return {
-    props: {
-      ...pageData
-    }
-  }
-}
 
   // TO DO: COMPONENTIZE FOOTER, HEAD
   // SHAPE DATA INTO HEAD, CONTENT, FOOTER

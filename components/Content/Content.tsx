@@ -1,3 +1,4 @@
+import NotFound from '../NotFound';
 import Splash from '../Splash';
 
 interface IContent {
@@ -9,20 +10,13 @@ interface IContent {
 export default function Content(props: IContent){
 
     const {contentType} = props;
-    debugger;
 
     switch (contentType){
         case "Splash":
             return <Splash {...props} />
         case "404":
-            return (<div>
-                {JSON.stringify(props)}
-                </div>)
+            return (<NotFound {...props} />)
         default:
-            return (
-            <div>
-                {JSON.stringify(props)}
-            </div>
-        )
+            return (<NotFound {...props} />)
     }
 }

@@ -7,7 +7,8 @@ const urlHelper = (method: string, queryParam?: string) => {
     if(!SPACE_ID || !ENVIRONMENT || !API_KEY ){
         throw new Error("Environment variables not set");
     }
-    return `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT}/${method}/?access_token=${API_KEY}&content_type=page&fields.url=${queryParam='/404'}`;
+    console.log("queryParam", queryParam);
+    return `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT}/${method}/?access_token=${API_KEY}&content_type=page&fields.url=${queryParam}`;
 }
 
 export const pageService = {
@@ -29,7 +30,6 @@ export const pageService = {
     },
     getPage: async (url: string) => {
         const requestURL = urlHelper('entries', url);
-        console.log("getPage url", requestURL);
         const pageData = await fetch(requestURL)        
             .then(res => res.json())
             .then((entries) => {
@@ -38,8 +38,9 @@ export const pageService = {
                     // default sorting is descending by date, so grab current one
                     const entry = entries.items[0];
                     return pageService.parseEntry(entry, includes);
-                }
+                }                
                 return {error: "NO PAGE FOUND"};
+                // TO DO: ACCOUNT FOR NOT FOUND ERRORS WITH 404 PAGE
             }).catch((error:any)=>error);
         return { ...pageData };
     }
