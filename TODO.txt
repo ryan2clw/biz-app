@@ -1,7 +1,30 @@
 THIS IS MY TO DO LIST:
 
-A. UNIT TESTS:
+I.  ADD MUI CORE
+    A.  Accordion
+    B.  App Bar
+    C.  Avatar
+    D.  Backdrop
+    E.  Badge
+    F.  BottomNavigation
+    G.  Box
+    H.  Breadcrumbs
+    I.  Button
+    J.  ButtonGroup
+    K.  Card
+    L.  Checkbox
+    M.  Chip
+    N.  CircularProgress
+    O.  Collapse
+    P.  Dialog
+    Q.  Divider
+    R.  Drawer
+    S.  ExpansionPanel
+    T.  Fab
+    U.  Fade
+    V.  FilledInput
+    W.  FormControl
+    X.  FormGroup
+    Y.  Grid
+    Z.  GridList
 
-    1.THAT ENVIRONMENT VARIABLES ARE SET (delete old code check)
-
-B.
