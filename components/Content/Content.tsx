@@ -11,8 +11,8 @@ export default function Content(props: IContent){
     const {contentType} = props;
 
     switch (contentType){
-        case "MultiplyGame":
-            return <MultiplyGame {...props} />
+        // case "MultiplyGame":
+        //     return <MultiplyGame {...props} />
         case "Splash":
             return <Splash {...props} />
         case "404":
