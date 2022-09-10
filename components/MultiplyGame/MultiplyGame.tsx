@@ -19,6 +19,16 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
   }
 }));
+const useStylesTwo = makeStyles((theme) => ({
+    paper: {
+      padding: theme.spacing(1),
+      textAlign: "center",
+      justifyContent: "center",
+      color: theme.palette.text.secondary,
+      height: '100%',
+      paddingLeft: 33
+    }
+  }));
 
 function GridItem({ classes, sm, min, background, children, color, fontSize, fontFamily } : any) {
 
@@ -31,14 +41,19 @@ function GridItem({ classes, sm, min, background, children, color, fontSize, fon
     );
 }
 
-function PlayArea({classes, boardValue}:any){
+function PlayArea({classes, boardValue, classesTwo}:any){
 
     return (
         <Grid container spacing={1} style={{height:'100%'}}>
-            <GridItem classes={classes} sm={12} text='Row 1'>
+            <GridItem classes={classesTwo} sm={12} text='Row 1'>
+                7
             </GridItem>
-            <GridItem classes={classes} sm={12} text='Row 2' />
-            <GridItem classes={classes} sm={12} text='Row 3' />
+            <GridItem classes={classes} sm={12} text='Row 2' >
+                x 4
+            </GridItem>
+            <GridItem classes={classes} sm={12} text='Row 3' >
+                28
+            </GridItem>
             <GridItem classes={classes} sm={12} text='Row 4' background="black" color="white" fontSize={80} fontFamily="Chalkduster">
                 {boardValue}
             </GridItem>
@@ -46,15 +61,15 @@ function PlayArea({classes, boardValue}:any){
     )
 }
 
-export function BasicButtonGroup({one, two, three, four, five,
+export function BasicButtonGroup({one, two, three, four, five, onClick,
      actionPrimaryColor, actionSecomdaryColor, actionFourthColor, actionThirdColor, actionFifthColor}:any) {
     return (
       <ButtonGroup variant="contained" aria-label="outlined primary button group">
-        <Button size="large" color={actionSecomdaryColor}>{one}</Button>
-        <Button size="large" color={actionPrimaryColor}>{two}</Button>
-        {three && <Button size="large" color={actionThirdColor}>{three}</Button>}
-        {four && <Button size="large" color={actionFourthColor}>{four}</Button>}
-        {five && <Button size="large" color={actionFifthColor}>{five}</Button>}
+        <Button size="large" color={actionSecomdaryColor} onClick={onClick}>{one}</Button>
+        <Button size="large" color={actionPrimaryColor} onClick={onClick}>{two}</Button>
+        {three && <Button size="large" color={actionThirdColor} onClick={onClick}>{three}</Button>}
+        {four && <Button size="large" color={actionFourthColor} onClick={onClick}>{four}</Button>}
+        {five && <Button size="large" color={actionFifthColor} onClick={onClick}>{five}</Button>}
       </ButtonGroup>
     );
   }
@@ -64,7 +79,8 @@ export default function MultiplyGame(props: any) {
 
     const {background, topContent} = props;
     const classes = useStyles();
-    const [state, setState] = useState("0");
+    const classesTwo = useStylesTwo();
+    const [state, setState] = useState("");
 
     return (
         <Main style={{padding:15}} background={background}>
@@ -91,18 +107,20 @@ export default function MultiplyGame(props: any) {
                         </div>
                     </div>
                 </GridItem>
-                <GridItem classes={classes} sm={7} min='60vh' text='Play area'>
-                    <PlayArea classes={classes} boardValue={state}/>
+                <GridItem classes={classes} sm={6} min='60vh' text='Play area'>
+                    <PlayArea classes={classes} boardValue={state} classesTwo={classesTwo}/>
                 </GridItem>
-                <GridItem classes={classes} sm={5} min='20vh' text='Number area' >
+                <GridItem classes={classes} sm={6} min='20vh' text='Number area' >
                     <BasicButtonGroup one="1" two="2" three="3" four="4" five="5" actionPrimaryColor="secondary" 
-                    actionSecomdaryColor="primary" actionThirdColor="primary" actionFourthColor="secondary" actionFifthColor="primary"/>
+                    actionSecomdaryColor="primary" actionThirdColor="primary" actionFourthColor="secondary" actionFifthColor="primary" onClick={(e:any)=>{if(state.length < 3)setState(state + e.target.innerText)}}/>
                     <br />
-                    <BasicButtonGroup one="6" two="7" three="8" four="9" five="0" actionPrimaryColor="primary" actionSecomdaryColor="secondary" actionThirdColor="secondary" actionFourthColor="primary" actionFifthColor="secondary" />
+                    <BasicButtonGroup one="6" two="7" three="8" four="9" five="0" actionPrimaryColor="primary" actionSecomdaryColor="secondary" actionThirdColor="secondary" actionFourthColor="primary" actionFifthColor="secondary" onClick={(e:any)=>{
+                            if(state.length < 3)setState(state + e.target.innerText)}
+                        } />
                     <br />
-                    {/* <BasicButtonGroup one="7" two="8" three="9" actionPrimaryColor="secondary" actionSecomdaryColor="primary" actionLastColor="primary"/>
-                    <br/> */}
-                    <BasicButtonGroup one='CLEAR' two="ENTER" actionPrimaryColor="primary" actionSecomdaryColor="secondary" />
+                    <BasicButtonGroup onClick={(e:any)=>{e.target.innerText==="CLEAR"?
+                            setState("") : alert(`SUBMITTED: ${state}`)}
+                        } one='CLEAR' two="ENTER" actionPrimaryColor="primary" actionSecomdaryColor="secondary" />
                 </GridItem>
             </Grid>
             </div>
