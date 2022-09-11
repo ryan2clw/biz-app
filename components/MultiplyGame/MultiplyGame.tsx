@@ -11,6 +11,7 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import { toggle } from "../../redux/gameDataSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { increment, incrementByAmount } from "../../redux/counterSlice";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -93,6 +94,7 @@ export default function MultiplyGame(props: any) {
     const { isStarted } = useSelector((state:any) => state.gameData);
     const [firstRando, setFirstRando] = useState(3);
     const [secondRando, setSecondRando] = useState(6);
+    const {numberRight,totalQuestions} = useSelector((state:any) => state.counter);
 
     return (
         <Main style={{padding:15}} background={background}>
@@ -121,7 +123,7 @@ export default function MultiplyGame(props: any) {
                             Score: 
                             </div>
                             <div style={{marginLeft: 6}} >
-                                0/0
+                                {numberRight}/{totalQuestions}
                             </div>
                         </div>
                     </div>
@@ -148,6 +150,12 @@ export default function MultiplyGame(props: any) {
                                 setFirstRando(randoNumber());
                                 setSecondRando(randoNumber());
                                 setAnswer("");
+                                if(parseInt(answer)===firstRando*secondRando){
+                                    dispatch(incrementByAmount(1));
+                                }else{
+                                    console.log("WRONG");
+                                    dispatch(incrementByAmount(0));
+                                }
                             })
                         }
                     }} one='CLEAR' two="ENTER" actionPrimaryColor="primary" actionSecomdaryColor="secondary" />
