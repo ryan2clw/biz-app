@@ -11,7 +11,7 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import { toggle } from "../../redux/gameDataSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { increment, incrementByAmount } from "../../redux/counterSlice";
+import { reset, incrementByAmount } from "../../redux/counterSlice";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -106,6 +106,7 @@ export default function MultiplyGame(props: any) {
             <div style={{textAlign: 'center'}}>
                 {!isStarted && <Button variant="contained" color="secondary" onClick={()=>{
                     dispatch(toggle());
+                    dispatch(reset());
                 }}>BEGIN</Button>}
             </div>
             {isStarted &&
@@ -144,7 +145,6 @@ export default function MultiplyGame(props: any) {
                             setAnswer("")
                         }else{
                             setShowSolution(true);
-                            console.log("GRADING SOLUTION");
                             delay(1000).then(()=>{
                                 setShowSolution(false);
                                 setFirstRando(randoNumber());
@@ -153,7 +153,6 @@ export default function MultiplyGame(props: any) {
                                 if(parseInt(answer)===firstRando*secondRando){
                                     dispatch(incrementByAmount(1));
                                 }else{
-                                    console.log("WRONG");
                                     dispatch(incrementByAmount(0));
                                 }
                             })

@@ -24,7 +24,6 @@ const DefaultFooter = () => {
 export default function Footer(props: any){
 
     const {contentType, onClick} = props;
-    console.log("contentType", contentType);
     const dispatch = useDispatch();
     const { isStarted } = useSelector((state:any) => state.gameData);
 
