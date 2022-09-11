@@ -78,7 +78,9 @@ export function BasicButtonGroup({one, two, three, four, five, onClick,
       </ButtonGroup>
     );
   }
-
+  function delay(time: number) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  }
 
 export default function MultiplyGame(props: any) {
 
@@ -138,12 +140,15 @@ export default function MultiplyGame(props: any) {
                     <BasicButtonGroup onClick={(e:any)=>{
                         if(e.target.innerText==="CLEAR"){
                             setAnswer("")
-                            setFirstRando(randoNumber());
-                            setSecondRando(randoNumber());
-                            setShowSolution(!showSolution);
                         }else{
                             setShowSolution(true);
-                            alert(`SUBMITTED: ${answer}`)
+                            console.log("GRADING SOLUTION");
+                            delay(1000).then(()=>{
+                                setShowSolution(false);
+                                setFirstRando(randoNumber());
+                                setSecondRando(randoNumber());
+                                setAnswer("");
+                            })
                         }
                     }} one='CLEAR' two="ENTER" actionPrimaryColor="primary" actionSecomdaryColor="secondary" />
                 </GridItem>
