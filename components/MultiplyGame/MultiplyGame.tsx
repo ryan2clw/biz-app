@@ -32,31 +32,34 @@ const useStylesTwo = makeStyles((theme) => ({
     }
   }));
 
-function GridItem({ classes, sm, background, children, color, fontSize, fontFamily, minHeight } : any) {
+function GridItem({ classes, sm, background, children, color, fontSize, fontFamily, minHeight, width } : any) {
 
     return (
-        <Grid item xs={12} sm={sm} style={{minHeight, background: '#dfdfdf', border: '1px solid black'}} className={classes?.item}>
+        <Grid item xs={12} sm={sm} style={{width, minHeight, background: '#dfdfdf', border: '1px solid black'}} className={classes?.item}>
             <Paper className={classes?.paper} style={{height:'100%', background, color, fontSize, fontFamily}}>
                 {children}
             </Paper>
         </Grid>
     );
 }
+const randoNumber = () => Math.floor(Math.random() * 10);
 
-function PlayArea({classes, boardValue, classesTwo}:any){
+function PlayArea({classes, boardValue, classesTwo, firstNumber, secondNumber , showAnswer}:any){
+
+    const firstTimesSecond = firstNumber * secondNumber;
 
     return (
         <Grid container spacing={1} style={{height:'100%'}}>
             <GridItem classes={classesTwo} sm={12} text='Row 1'>
-                7
+                {firstNumber}
             </GridItem>
             <GridItem classes={classes} sm={12} text='Row 2' >
-                x 4
+                x {secondNumber}
             </GridItem>
-            <GridItem classes={classes} sm={12} text='Row 3' >
-                28
+            <GridItem classes={classes} sm={12} text='Row 3' minHeight={48} >
+                {showAnswer && firstTimesSecond}
             </GridItem>
-            <GridItem classes={classes} minHeight={118} sm={12} text='Row 4' background="black" color="white" fontSize={80} fontFamily="Chalkduster">
+            <GridItem classes={classes} width={305} minHeight={118} sm={12} text='Row 4' background="black" color="white" fontSize={80} fontFamily="Chalkduster">
                 {boardValue}
             </GridItem>
         </Grid>
@@ -83,9 +86,11 @@ export default function MultiplyGame(props: any) {
     const classes = useStyles();
     const classesTwo = useStylesTwo();
     const [answer, setAnswer] = useState("");
-    const [isGameOn, setGameState] = useState(false);
+    const [showSolution, setShowSolution] = useState(false);
     const dispatch = useDispatch();
     const { isStarted } = useSelector((state:any) => state.gameData);
+    const [firstRando, setFirstRando] = useState(3);
+    const [secondRando, setSecondRando] = useState(6);
 
     return (
         <Main style={{padding:15}} background={background}>
@@ -96,7 +101,6 @@ export default function MultiplyGame(props: any) {
                 }
             <div style={{textAlign: 'center'}}>
                 {!isStarted && <Button variant="contained" color="secondary" onClick={()=>{
-                    setGameState(true);
                     dispatch(toggle());
                 }}>BEGIN</Button>}
             </div>
@@ -106,14 +110,12 @@ export default function MultiplyGame(props: any) {
                     <div style={{display:'flex', flexDirection: 'row', justifyContent:"space-around"}}>
                         <div>
                             <div >
-                                {/* style={{marginLeft: 15}} */}
                             Timer: 
                             </div>
                             <Timer />
                         </div>
                         <div >
                             <div >
-                                {/* style={{marginLeft: 15}} */}
                             Score: 
                             </div>
                             <div style={{marginLeft: 6}} >
@@ -123,7 +125,7 @@ export default function MultiplyGame(props: any) {
                     </div>
                 </GridItem>
                 <GridItem classes={classes} sm={6} min='60vh' text='Play area'>
-                    <PlayArea classes={`${classes}`} boardValue={answer} classesTwo={classesTwo}/>
+                    <PlayArea classes={`${classes}`} boardValue={answer} classesTwo={classesTwo} showAnswer={showSolution} firstNumber={firstRando} secondNumber={secondRando}  />
                 </GridItem>
                 <GridItem classes={classes} sm={6} min='20vh' text='Number area' >
                     <BasicButtonGroup one="1" two="2" three="3" four="4" five="5" actionPrimaryColor="secondary" 
@@ -133,9 +135,17 @@ export default function MultiplyGame(props: any) {
                             if(answer.length < 3)setAnswer(answer + e.target.innerText)}
                         } />
                     <br />
-                    <BasicButtonGroup onClick={(e:any)=>{e.target.innerText==="CLEAR"?
-                            setAnswer("") : alert(`SUBMITTED: ${answer}`)}
-                        } one='CLEAR' two="ENTER" actionPrimaryColor="primary" actionSecomdaryColor="secondary" />
+                    <BasicButtonGroup onClick={(e:any)=>{
+                        if(e.target.innerText==="CLEAR"){
+                            setAnswer("")
+                            setFirstRando(randoNumber());
+                            setSecondRando(randoNumber());
+                            setShowSolution(!showSolution);
+                        }else{
+                            setShowSolution(true);
+                            alert(`SUBMITTED: ${answer}`)
+                        }
+                    }} one='CLEAR' two="ENTER" actionPrimaryColor="primary" actionSecomdaryColor="secondary" />
                 </GridItem>
             </Grid>}
             </div>
