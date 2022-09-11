@@ -9,6 +9,8 @@ import Main from "../Main";
 import Timer from "../Timer/Timer";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
+import { toggle } from "../../redux/gameDataSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -82,20 +84,23 @@ export default function MultiplyGame(props: any) {
     const classesTwo = useStylesTwo();
     const [answer, setAnswer] = useState("");
     const [isGameOn, setGameState] = useState(false);
+    const dispatch = useDispatch();
+    const { isStarted } = useSelector((state:any) => state.gameData);
 
     return (
         <Main style={{padding:15}} background={background}>
             <div className={`${styling.multiplyGame}`}>
-                {!isGameOn && <div style={{textAlign:'center'}}>
+                {!isStarted && <div style={{textAlign:'center'}}>
                     {documentToReactComponents(topContent)}
                 </div>
                 }
             <div style={{textAlign: 'center'}}>
-                {!isGameOn && <Button variant="contained" color="secondary" onClick={()=>{
+                {!isStarted && <Button variant="contained" color="secondary" onClick={()=>{
                     setGameState(true);
+                    dispatch(toggle());
                 }}>BEGIN</Button>}
             </div>
-            {isGameOn &&
+            {isStarted &&
             <Grid container spacing={1}>
                 <GridItem classes={classes} sm={12} min='10vh' text='Timer'>
                     <div style={{display:'flex', flexDirection: 'row', justifyContent:"space-around"}}>
