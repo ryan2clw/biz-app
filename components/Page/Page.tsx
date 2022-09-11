@@ -3,12 +3,15 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../../styles/Home.module.scss';
 import Content from '../Content';
+import Footer from '../Footer';
 
   // TO DO: COMPONENTIZE FOOTER, HEAD
   // SHAPE DATA INTO HEAD, CONTENT, FOOTER
   // MENU WILL ALSO BE ITS OWN CONTENT ON TOP OF CONTENT, SO 4 MAIN DATA OBJECTS
 
 const Page = (props: any) => {
+
+  const {contentType} = props;
 
   return (
     <div>
@@ -20,18 +23,7 @@ const Page = (props: any) => {
       
       <Content {...props} />   
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      <Footer contentType={contentType} />
     </div>
   )
 }
