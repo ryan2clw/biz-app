@@ -43,7 +43,9 @@ function GridItem({ classes, sm, background, children, color, fontSize, fontFami
         </Grid>
     );
 }
-const randoNumber = () => Math.floor(Math.random() * 10);
+const randomIntFromInterval= (min:number, max:number) => {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
 
 function PlayArea({classes, boardValue, classesTwo, firstNumber, secondNumber , showAnswer}:any){
 
@@ -92,8 +94,8 @@ export default function MultiplyGame(props: any) {
     const [showSolution, setShowSolution] = useState(false);
     const dispatch = useDispatch();
     const { isStarted } = useSelector((state:any) => state.gameData);
-    const [firstRando, setFirstRando] = useState(3);
-    const [secondRando, setSecondRando] = useState(6);
+    const [firstRando, setFirstRando] = useState(randomIntFromInterval(2,10));
+    const [secondRando, setSecondRando] = useState(randomIntFromInterval(2,10));
     const {numberRight,totalQuestions} = useSelector((state:any) => state.counter);
 
     return (
@@ -146,15 +148,15 @@ export default function MultiplyGame(props: any) {
                         }else{
                             setShowSolution(true);
                             delay(1000).then(()=>{
-                                setShowSolution(false);
-                                setFirstRando(randoNumber());
-                                setSecondRando(randoNumber());
-                                setAnswer("");
                                 if(parseInt(answer)===firstRando*secondRando){
                                     dispatch(incrementByAmount(1));
                                 }else{
                                     dispatch(incrementByAmount(0));
                                 }
+                                setShowSolution(false);
+                                setFirstRando(randomIntFromInterval(2,10));
+                                setSecondRando(randomIntFromInterval(2,10));
+                                setAnswer("");
                             })
                         }
                     }} one='CLEAR' two="ENTER" actionPrimaryColor="primary" actionSecomdaryColor="secondary" />
