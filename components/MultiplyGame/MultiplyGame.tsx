@@ -9,9 +9,8 @@ import Main from "../Main";
 import Timer from "../Timer/Timer";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
-import { toggle } from "../../redux/gameDataSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { reset, incrementByAmount } from "../../redux/counterSlice";
+import { addRound, toggle, reset } from "../../redux/gamePlaySlice";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -93,10 +92,10 @@ export default function MultiplyGame(props: any) {
     const [answer, setAnswer] = useState("");
     const [showSolution, setShowSolution] = useState(false);
     const dispatch = useDispatch();
-    const { isStarted } = useSelector((state:any) => state.gameData);
+    const { isStarted } = useSelector((state:any) => state.gamePlay);
     const [firstRando, setFirstRando] = useState(randomIntFromInterval(2,10));
     const [secondRando, setSecondRando] = useState(randomIntFromInterval(2,10));
-    const {numberRight,totalQuestions} = useSelector((state:any) => state.counter);
+    const {numberRight,totalQuestions} = useSelector((state:any) => state.gamePlay);
 
     return (
         <Main style={{padding:15}} background={background}>
@@ -146,13 +145,13 @@ export default function MultiplyGame(props: any) {
                         if(e.target.innerText==="CLEAR"){
                             setAnswer("")
                         }else{
+                            dispatch(addRound({
+                                firstNumber: firstRando,
+                                secondNumber: secondRando,
+                                answer: parseInt(answer)
+                            }));
                             setShowSolution(true);
                             delay(1000).then(()=>{
-                                if(parseInt(answer)===firstRando*secondRando){
-                                    dispatch(incrementByAmount(1));
-                                }else{
-                                    dispatch(incrementByAmount(0));
-                                }
                                 setShowSolution(false);
                                 setFirstRando(randomIntFromInterval(2,10));
                                 setSecondRando(randomIntFromInterval(2,10));

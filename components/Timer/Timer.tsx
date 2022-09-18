@@ -88,7 +88,7 @@ const Timer = () => {
 
 	return (
 		<div className={`${styling.timer}`}>
-			<p onClick={onClickReset}>{timer}</p>
+			<p>{timer}</p>
 			{/* <button onClick={onClickReset}>Reset</button> */}
 		</div>
 	)

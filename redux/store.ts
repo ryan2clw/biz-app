@@ -1,10 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import gameDataReducer from './gameDataSlice';
-import counterReducer from './counterSlice';
+import gamePlayReducer from './gamePlaySlice';
 
 export default configureStore({
     reducer: {
-      gameData: gameDataReducer,
-      counter: counterReducer,
+      gamePlay: gamePlayReducer
     },
   })

@@ -1,7 +1,7 @@
 import { Button } from '@material-ui/core';
 import Image from 'next/image'
 import { useDispatch, useSelector } from 'react-redux';
-import { toggle } from '../../redux/gameDataSlice';
+import { toggle } from '../../redux/gamePlaySlice';
 import styles from './Footer.module.scss';
 
 const DefaultFooter = () => {
@@ -25,7 +25,7 @@ export default function Footer(props: any){
 
     const {contentType, onClick} = props;
     const dispatch = useDispatch();
-    const { isStarted } = useSelector((state:any) => state.gameData);
+    const { isStarted } = useSelector((state:any) => state.gamePlay);
 
     switch(contentType){
         case "MultiplyGame":
