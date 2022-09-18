@@ -143,9 +143,12 @@ export default function MultiplyGame(props: any) {
                                 secondNumber: secondRando,
                                 answer: parseInt(answer)
                             }
-                            alert(JSON.stringify(payload));
-                            dispatch(addRound(payload));
-                            setShowSolution(true);
+                            // wait a half sec for the input to execute
+                            delay(500).then(()=>{
+                                alert(JSON.stringify(payload));
+                                dispatch(addRound(payload));
+                                setShowSolution(true);
+                            })
                             delay(1000).then(()=>{
                                 setShowSolution(false);
                                 setFirstRando(randomIntFromInterval(2,10));
