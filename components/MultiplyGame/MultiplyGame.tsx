@@ -128,10 +128,10 @@ export default function MultiplyGame(props: any) {
                 </GridItem>
                 <GridItem classes={classes} sm={6} min='20vh' text='Number area' >
                     <BasicButtonGroup one="1" two="2" three="3" four="4" five="5" actionPrimaryColor="secondary" 
-                    actionSecomdaryColor="primary" actionThirdColor="primary" actionFourthColor="secondary" actionFifthColor="primary" onClick={(e:any)=>{if(answer.length < 3)setAnswer(answer + e.target.innerText)}}/>
+                    actionSecomdaryColor="primary" actionThirdColor="primary" actionFourthColor="secondary" actionFifthColor="primary" onClick={(e:any)=>{setAnswer(answer + e.target.innerText)}}/>
                     <br />
                     <BasicButtonGroup one="6" two="7" three="8" four="9" five="0" actionPrimaryColor="primary" actionSecomdaryColor="secondary" actionThirdColor="secondary" actionFourthColor="primary" actionFifthColor="secondary" onClick={(e:any)=>{
-                            if(answer.length < 3)setAnswer(answer + e.target.innerText)}
+                            setAnswer(answer + e.target.innerText)}
                         } />
                     <br />
                     <BasicButtonGroup onClick={(e:any)=>{
