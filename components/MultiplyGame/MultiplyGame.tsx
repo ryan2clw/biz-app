@@ -11,6 +11,7 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { addRound, toggle, reset } from "../../redux/gamePlaySlice";
+import ScoreBoard from "./ScoreBoard";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -95,7 +96,6 @@ export default function MultiplyGame(props: any) {
     const { isStarted } = useSelector((state:any) => state.gamePlay);
     const [firstRando, setFirstRando] = useState(randomIntFromInterval(2,10));
     const [secondRando, setSecondRando] = useState(randomIntFromInterval(2,10));
-    const {numberRight,totalQuestions} = useSelector((state:any) => state.gamePlay);
 
     return (
         <Main style={{padding:15}} background={background}>
@@ -120,14 +120,7 @@ export default function MultiplyGame(props: any) {
                             </div>
                             <Timer />
                         </div>
-                        <div >
-                            <div >
-                            Score: 
-                            </div>
-                            <div style={{marginLeft: 6}} >
-                                {numberRight}/{totalQuestions}
-                            </div>
-                        </div>
+                        <ScoreBoard />
                     </div>
                 </GridItem>
                 <GridItem classes={classes} sm={6} min='60vh' text='Play area'>
