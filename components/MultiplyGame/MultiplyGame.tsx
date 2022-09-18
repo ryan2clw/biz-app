@@ -138,11 +138,13 @@ export default function MultiplyGame(props: any) {
                         if(e.target.innerText==="CLEAR"){
                             setAnswer("")
                         }else{
-                            dispatch(addRound({
+                            const payload = {
                                 firstNumber: firstRando,
                                 secondNumber: secondRando,
                                 answer: parseInt(answer)
-                            }));
+                            }
+                            alert(JSON.stringify(payload));
+                            dispatch(addRound(payload));
                             setShowSolution(true);
                             delay(1000).then(()=>{
                                 setShowSolution(false);
