@@ -13,6 +13,7 @@ export const gamePlaySlice = createSlice({
     numberRight: 0,
     totalQuestions: 0,
     isStarted: false,
+    answer: "",
   },
   reducers: {
     addRound: (state, action) => {
@@ -23,21 +24,25 @@ export const gamePlaySlice = createSlice({
         }
         state.totalQuestions += 1;
     },
+    addToAnswer: (state, action) => {
+      console.log("action.payload", action.payload);
+      state.answer += action.payload;
+    },
+    clearAnswer:  (state) => {
+      state.answer = "";
+    },
     reset: (state) => {
         state.numberRight = 0;
         state.totalQuestions = 0;
     },
     toggle: (state) => {
-        // Redux Toolkit allows us to write "mutating" logic in reducers. It
-        // doesn't actually mutate the state because it uses the Immer library,
-        // which detects changes to a "draft state" and produces a brand new
-        // immutable state based off those changes
+        // Redux Toolkit allows us to write "mutating" logic in reducers.
         state.isStarted = !state.isStarted
       },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addRound, reset, toggle } = gamePlaySlice.actions
+export const { addRound, reset, toggle, addToAnswer, clearAnswer } = gamePlaySlice.actions
 
 export default gamePlaySlice.reducer
